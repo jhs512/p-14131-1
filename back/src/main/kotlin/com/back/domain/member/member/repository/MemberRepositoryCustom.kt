@@ -10,4 +10,5 @@ interface MemberRepositoryCustom {
     fun findQByUsernameOrNickname(username: String, nickname: String): List<Member>
     fun findQByUsernameAndEitherPasswordOrNickname(username: String, password: String?, nickname: String?): List<Member>
     fun findQByNicknameContaining(nickname: String): List<Member>
+    fun countQByNicknameContaining(nickname: String): Long
 }

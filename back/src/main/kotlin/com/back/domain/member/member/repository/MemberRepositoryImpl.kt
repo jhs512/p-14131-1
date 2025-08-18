@@ -86,4 +86,14 @@ class MemberRepositoryImpl(
             .where(member.nickname.contains(nickname))
             .fetch()
     }
+
+    override fun countQByNicknameContaining(nickname: String): Long {
+        val member = QMember.member
+
+        return queryFactory
+            .select(member.count())
+            .from(member)
+            .where(member.nickname.contains(nickname))
+            .fetchOne() ?: 0L
+    }
 }

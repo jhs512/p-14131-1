@@ -19,4 +19,6 @@ interface MemberRepository : JpaRepository<Member, Int>, MemberRepositoryCustom 
     fun findCByUsernameAndEitherPasswordOrNickname(username: String, password: String?, nickname: String?): List<Member>
 
     fun findByNicknameContaining(nickname: String): List<Member>
+
+    fun countByNicknameContaining(nickname: String): Long
 }
