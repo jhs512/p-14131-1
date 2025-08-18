@@ -33,4 +33,20 @@ class MemberRepositoryTest {
 
         assertThat(member.id).isEqualTo(1)
     }
+
+    @Test
+    @DisplayName("findByUsername")
+    fun t3() {
+        val member = memberRepository.findByUsername("admin").getOrThrow()
+
+        assertThat(member.username).isEqualTo("admin")
+    }
+
+    @Test
+    @DisplayName("findQByUsername")
+    fun t4() {
+        val member = memberRepository.findQByUsername("admin").getOrThrow()
+
+        assertThat(member.username).isEqualTo("admin")
+    }
 }
