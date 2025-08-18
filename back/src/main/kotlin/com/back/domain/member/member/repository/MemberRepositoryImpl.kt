@@ -25,4 +25,13 @@ class MemberRepositoryImpl(
             .where(member.username.eq(username))
             .fetchOne()
     }
+
+    override fun findQByIdIn(ids: List<Int>): List<Member> {
+        val member = QMember.member
+
+        return queryFactory
+            .selectFrom(member)
+            .where(member.id.`in`(ids))
+            .fetch()
+    }
 }

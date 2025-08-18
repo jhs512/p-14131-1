@@ -49,4 +49,22 @@ class MemberRepositoryTest {
 
         assertThat(member.username).isEqualTo("admin")
     }
+
+    @Test
+    @DisplayName("findByIdIn")
+    fun t5() {
+        val members = memberRepository.findByIdIn(listOf(1, 2, 3))
+
+        assertThat(members).isNotEmpty
+        assertThat(members.map { it.id }).containsAnyOf(1, 2, 3)
+    }
+
+    @Test
+    @DisplayName("findQByIdIn")
+    fun t6() {
+        val members = memberRepository.findQByIdIn(listOf(1, 2, 3))
+
+        assertThat(members).isNotEmpty
+        assertThat(members.map { it.id }).containsAnyOf(1, 2, 3)
+    }
 }
