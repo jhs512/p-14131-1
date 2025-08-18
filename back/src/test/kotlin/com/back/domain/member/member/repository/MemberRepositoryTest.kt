@@ -85,4 +85,22 @@ class MemberRepositoryTest {
         assertThat(member.username).isEqualTo("admin")
         assertThat(member.nickname).isEqualTo("관리자")
     }
+
+    @Test
+    @DisplayName("findByUsernameOrNickname")
+    fun t9() {
+        val members = memberRepository.findByUsernameOrNickname("admin", "유저1")
+
+        assertThat(members).isNotEmpty
+        assertThat(members.any { it.username == "admin" || it.nickname == "유저1" }).isTrue
+    }
+
+    @Test
+    @DisplayName("findQByUsernameOrNickname")
+    fun t10() {
+        val members = memberRepository.findQByUsernameOrNickname("admin", "유저1")
+
+        assertThat(members).isNotEmpty
+        assertThat(members.any { it.username == "admin" || it.nickname == "유저1" }).isTrue
+    }
 }
