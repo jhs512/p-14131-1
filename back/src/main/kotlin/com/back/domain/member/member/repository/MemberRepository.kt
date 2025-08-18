@@ -17,4 +17,6 @@ interface MemberRepository : JpaRepository<Member, Int>, MemberRepositoryCustom 
 
     @Query("SELECT m FROM Member m WHERE m.username = :username AND (m.password = :password OR m.nickname = :nickname)")
     fun findCByUsernameAndEitherPasswordOrNickname(username: String, password: String?, nickname: String?): List<Member>
+
+    fun findByNicknameContaining(nickname: String): List<Member>
 }

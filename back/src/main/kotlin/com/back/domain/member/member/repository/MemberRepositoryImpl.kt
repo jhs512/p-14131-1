@@ -77,4 +77,13 @@ class MemberRepositoryImpl(
             )
             .fetch()
     }
+
+    override fun findQByNicknameContaining(nickname: String): List<Member> {
+        val member = QMember.member
+
+        return queryFactory
+            .selectFrom(member)
+            .where(member.nickname.contains(nickname))
+            .fetch()
+    }
 }
