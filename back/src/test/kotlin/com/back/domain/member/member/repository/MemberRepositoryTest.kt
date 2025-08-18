@@ -155,4 +155,20 @@ class MemberRepositoryTest {
 
         assertThat(count).isEqualTo(3)
     }
+
+    @Test
+    @DisplayName("existsByNicknameContaining")
+    fun t17() {
+        val exists = memberRepository.existsByNicknameContaining("유저")
+
+        assertThat(exists).isTrue
+    }
+
+    @Test
+    @DisplayName("existsQByNicknameContaining")
+    fun t18() {
+        val exists = memberRepository.existsQByNicknameContaining("유저")
+
+        assertThat(exists).isTrue
+    }
 }

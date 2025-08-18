@@ -96,4 +96,14 @@ class MemberRepositoryImpl(
             .where(member.nickname.contains(nickname))
             .fetchOne() ?: 0L
     }
+
+    override fun existsQByNicknameContaining(nickname: String): Boolean {
+        val member = QMember.member
+
+        return queryFactory
+            .selectOne()
+            .from(member)
+            .where(member.nickname.contains(nickname))
+            .fetchFirst() != null
+    }
 }

@@ -21,4 +21,6 @@ interface MemberRepository : JpaRepository<Member, Int>, MemberRepositoryCustom 
     fun findByNicknameContaining(nickname: String): List<Member>
 
     fun countByNicknameContaining(nickname: String): Long
+
+    fun existsByNicknameContaining(nickname: String): Boolean
 }
