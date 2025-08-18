@@ -12,8 +12,7 @@ class MemberRepositoryImpl(
         val member = QMember.member
 
         return queryFactory
-            .select(member)
-            .from(member)
+            .selectFrom(member)
             .where(member.id.eq(id))
             .fetchOne()
     }
