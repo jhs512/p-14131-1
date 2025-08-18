@@ -67,4 +67,22 @@ class MemberRepositoryTest {
         assertThat(members).isNotEmpty
         assertThat(members.map { it.id }).containsAnyOf(1, 2, 3)
     }
+
+    @Test
+    @DisplayName("findByUsernameAndNickname")
+    fun t7() {
+        val member = memberRepository.findByUsernameAndNickname("admin", "관리자").getOrThrow()
+
+        assertThat(member.username).isEqualTo("admin")
+        assertThat(member.nickname).isEqualTo("관리자")
+    }
+
+    @Test
+    @DisplayName("findQByUsernameAndNickname")
+    fun t8() {
+        val member = memberRepository.findQByUsernameAndNickname("admin", "관리자").getOrThrow()
+
+        assertThat(member.username).isEqualTo("admin")
+        assertThat(member.nickname).isEqualTo("관리자")
+    }
 }

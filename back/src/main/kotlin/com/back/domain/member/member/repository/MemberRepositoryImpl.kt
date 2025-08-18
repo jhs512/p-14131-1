@@ -34,4 +34,16 @@ class MemberRepositoryImpl(
             .where(member.id.`in`(ids))
             .fetch()
     }
+
+    override fun findQByUsernameAndNickname(username: String, nickname: String): Member? {
+        val member = QMember.member
+
+        return queryFactory
+            .selectFrom(member)
+            .where(
+                member.username.eq(username)
+                    .and(member.nickname.eq(nickname))
+            )
+            .fetchOne()
+    }
 }
