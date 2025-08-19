@@ -225,7 +225,12 @@ class MemberRepositoryTest {
     @Test
     @DisplayName("findByUsernameContaining with Pageable")
     fun t23() {
-        val pageable = PageRequest.of(0, 2, Sort.by("id").descending())
+        val pageable = PageRequest.of(
+            0, 2,
+            Sort.by("id").descending()
+                .and(Sort.by("username").ascending())
+                .and(Sort.by("nickname").descending())
+        )
         val page = memberRepository.findByUsernameContaining("user", pageable)
 
         for (i in 0 until page.content.size - 1) {
