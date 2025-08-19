@@ -27,4 +27,6 @@ interface MemberRepository : JpaRepository<Member, Int>, MemberRepositoryCustom 
     fun existsByNicknameContaining(nickname: String): Boolean
 
     fun findByNicknameContaining(nickname: String, pageable: Pageable): Page<Member>
+
+    fun findByNicknameContainingOrderByIdDesc(nickname: String): List<Member>
 }
