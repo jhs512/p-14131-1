@@ -71,10 +71,23 @@ class MemberService(
         member.modify(nickname, profileImgUrl)
     }
 
-    fun findPagedByKw(kwType: MemberSearchKeywordType1, kw: String, page: Int, pageSize: Int) =
+    fun findPagedByKw(
+        kwType: MemberSearchKeywordType1,
+        kw: String,
+        sort: String,
+        page: Int,
+        pageSize: Int
+    ) =
         memberRepository.findQPagedByKw(
             kwType,
             kw,
-            PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"))
+            PageRequest.of(
+                page - 1,
+                pageSize,
+                Sort.by(
+                    if (sort.endsWith("Asc")) Sort.Direction.ASC else Sort.Direction.DESC,
+                    sort.removeSuffix("Asc")
+                )
+            )
         )
 }
