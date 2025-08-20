@@ -172,6 +172,7 @@ class MemberRepositoryImpl(
     }
 
     override fun findQPagedByKw(
+        kwType: String,
         kw: String,
         pageable: Pageable
     ): Page<Member> {
@@ -179,8 +180,15 @@ class MemberRepositoryImpl(
 
         // 조건 빌더 생성
         val builder = com.querydsl.core.BooleanBuilder()
+
         if (kw.isNotBlank()) {
-            builder.and(member.nickname.contains(kw))
+            when (kwType) {
+                "USERNAME" -> builder.and(member.username.contains(kw))
+                "NICKNAME" -> builder.and(member.nickname.contains(kw))
+                else -> {
+                    builder.and(member.username.contains(kw).or(member.nickname.contains(kw)))
+                }
+            }
         }
 
         // 기본 query 생성
