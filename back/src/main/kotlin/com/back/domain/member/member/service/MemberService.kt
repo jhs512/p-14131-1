@@ -4,6 +4,8 @@ import com.back.domain.member.member.entity.Member
 import com.back.domain.member.member.repository.MemberRepository
 import com.back.global.exception.ServiceException
 import com.back.global.rsData.RsData
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -42,6 +44,10 @@ class MemberService(
     fun findById(id: Int): Member? = memberRepository.findById(id).orElse(null)
 
     fun findAll(): List<Member> = memberRepository.findAll()
+
+    fun findPaged(page: Int, pageSize: Int) = memberRepository.findAll(
+        PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"))
+    )
 
     fun checkPassword(member: Member, rawPassword: String) {
         val hashed = member.password
