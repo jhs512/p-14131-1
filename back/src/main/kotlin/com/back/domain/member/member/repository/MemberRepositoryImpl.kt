@@ -2,6 +2,7 @@ package com.back.domain.member.member.repository
 
 import com.back.domain.member.member.entity.Member
 import com.back.domain.member.member.entity.QMember
+import com.back.standard.util.QueryDslUtil
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -148,11 +149,12 @@ class MemberRepositoryImpl(
             .where(member.username.contains(username))
 
         // Apply sorting
-        pageable.sort.forEach { order ->
-            when (order.property) {
-                "id" -> query.orderBy(if (order.isAscending) member.id.asc() else member.id.desc())
-                "username" -> query.orderBy(if (order.isAscending) member.username.asc() else member.username.desc())
-                "nickname" -> query.orderBy(if (order.isAscending) member.nickname.asc() else member.nickname.desc())
+        QueryDslUtil.applySorting(query, pageable) { property ->
+            when (property) {
+                "id" -> member.id
+                "username" -> member.username
+                "nickname" -> member.nickname
+                else -> null
             }
         }
 
@@ -197,11 +199,12 @@ class MemberRepositoryImpl(
             .where(builder)
 
         // pageable 정렬 조건 적용
-        pageable.sort.forEach { order ->
-            when (order.property) {
-                "id" -> query.orderBy(if (order.isAscending) member.id.asc() else member.id.desc())
-                "username" -> query.orderBy(if (order.isAscending) member.username.asc() else member.username.desc())
-                "nickname" -> query.orderBy(if (order.isAscending) member.nickname.asc() else member.nickname.desc())
+        QueryDslUtil.applySorting(query, pageable) { property ->
+            when (property) {
+                "id" -> member.id
+                "username" -> member.username
+                "nickname" -> member.nickname
+                else -> null
             }
         }
 
