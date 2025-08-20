@@ -5,6 +5,7 @@ import com.back.domain.member.member.repository.MemberRepository
 import com.back.global.exception.ServiceException
 import com.back.global.rsData.RsData
 import com.back.standard.dto.MemberSearchKeywordType1
+import com.back.standard.dto.MemberSearchSortType1
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -74,7 +75,9 @@ class MemberService(
     fun findPagedByKw(
         kwType: MemberSearchKeywordType1,
         kw: String,
-        sort: String,
+
+        sort: MemberSearchSortType1,
+
         page: Int,
         pageSize: Int
     ) =
@@ -84,10 +87,7 @@ class MemberService(
             PageRequest.of(
                 page - 1,
                 pageSize,
-                Sort.by(
-                    if (sort.endsWith("Asc")) Sort.Direction.ASC else Sort.Direction.DESC,
-                    sort.removeSuffix("Asc")
-                )
+                Sort.by(if (sort.isAsc) Sort.Direction.ASC else Sort.Direction.DESC, sort.property)
             )
         )
 }
