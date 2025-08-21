@@ -33,7 +33,6 @@ class PostRepositoryImpl(
 
         val query = queryFactory
             .selectFrom(post)
-            .leftJoin(post.author).fetchJoin()
             .where(builder)
 
         QueryDslUtil.applySorting(query, pageable) { property ->
