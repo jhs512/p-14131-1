@@ -17,4 +17,8 @@ abstract class BaseTime(
 
     @LastModifiedDate
     lateinit var modifyDate: LocalDateTime
+
+    fun updateModifyDate() {
+        this.modifyDate = LocalDateTime.now()
+    }
 }
