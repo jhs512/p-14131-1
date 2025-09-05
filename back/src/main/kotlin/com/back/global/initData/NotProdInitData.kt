@@ -2,6 +2,7 @@ package com.back.global.initData
 
 import com.back.domain.member.member.service.MemberService
 import com.back.domain.post.post.service.PostService
+import com.back.domain.post.postUser.service.PostUserService
 import com.back.global.app.CustomConfigProperties
 import com.back.standard.extensions.getOrThrow
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional
 class NotProdInitData(
     private val postService: PostService,
     private val memberService: MemberService,
+    private val postUserService: PostUserService,
     private val customConfigProperties: CustomConfigProperties,
 ) {
     @Lazy
@@ -66,18 +68,18 @@ class NotProdInitData(
     fun work2() {
         if (postService.count() > 0) return
 
-        val memberUser1 = memberService.findByUsername("user1").getOrThrow()
-        val memberUser2 = memberService.findByUsername("user2").getOrThrow()
-        val memberUser3 = memberService.findByUsername("user3").getOrThrow()
+        val postUser1 = postUserService.findByUsername("user1").getOrThrow()
+        val postUser2 = postUserService.findByUsername("user2").getOrThrow()
+        val postUser3 = postUserService.findByUsername("user3").getOrThrow()
 
-        val post1 = postService.write(memberUser1, "제목 1", "내용 1")
-        val post2 = postService.write(memberUser1, "제목 2", "내용 2")
-        val post3 = postService.write(memberUser2, "제목 3", "내용 3")
+        val post1 = postService.write(postUser1, "제목 1", "내용 1")
+        val post2 = postService.write(postUser1, "제목 2", "내용 2")
+        val post3 = postService.write(postUser2, "제목 3", "내용 3")
 
-        post1.addComment(memberUser1, "댓글 1-1")
-        post1.addComment(memberUser1, "댓글 1-2")
-        post1.addComment(memberUser2, "댓글 1-3")
-        post2.addComment(memberUser3, "댓글 2-1")
-        post2.addComment(memberUser3, "댓글 2-2")
+        post1.addComment(postUser1, "댓글 1-1")
+        post1.addComment(postUser1, "댓글 1-2")
+        post1.addComment(postUser2, "댓글 1-3")
+        post2.addComment(postUser3, "댓글 2-1")
+        post2.addComment(postUser3, "댓글 2-2")
     }
 }

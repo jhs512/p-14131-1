@@ -1,9 +1,9 @@
 package com.back.domain.post.post.service
 
-import com.back.domain.member.member.entity.Member
 import com.back.domain.post.post.entity.Post
 import com.back.domain.post.post.repository.PostRepository
 import com.back.domain.post.postComment.entity.PostComment
+import com.back.domain.post.postUser.entity.PostUser
 import com.back.standard.dto.PostSearchKeywordType1
 import com.back.standard.dto.PostSearchSortType1
 import org.springframework.data.domain.Page
@@ -18,7 +18,7 @@ class PostService(
         return postRepository.count()
     }
 
-    fun write(author: Member, title: String, content: String): Post {
+    fun write(author: PostUser, title: String, content: String): Post {
         val post = Post(author, title, content)
 
         return postRepository.save(post)
@@ -34,7 +34,7 @@ class PostService(
         post.modify(title, content)
     }
 
-    fun writeComment(author: Member, post: Post, content: String): PostComment {
+    fun writeComment(author: PostUser, post: Post, content: String): PostComment {
         return post.addComment(author, content)
     }
 
