@@ -2,6 +2,7 @@ package com.back.domain.post.postUser.entity
 
 import com.back.domain.member.member.entity.BaseMember
 import com.back.domain.member.member.entity.Member
+import com.back.domain.post.postUser.service.PostUserAttrService
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
@@ -13,23 +14,32 @@ class PostUser(
     username: String,
     @field:Column(name = "nickname") var name: String,
     profileImgUrl: String? = null,
-    @field:Column(columnDefinition = "INT DEFAULT 0") var postsCount: Int = 0,
-    @field:Column(columnDefinition = "INT DEFAULT 0") var postCommentsCount: Int = 0,
 ) : BaseMember(id, username, profileImgUrl) {
+
+    companion object {
+        lateinit var attrService: PostUserAttrService
+    }
+
+    val postsCount: Int
+        get() = attrService.findBySubjectAndName(this, "postsCount")?.value?.toInt() ?: 0
+
+    val postCommentsCount: Int
+        get() = attrService.findBySubjectAndName(this, "postCommentsCount")?.value?.toInt() ?: 0
+
     fun incrementPostsCount() {
-        postsCount++
+        attrService.incrementPostsCount(this)
     }
 
     fun decrementPostsCount() {
-        postsCount--
+        attrService.decrementPostsCount(this)
     }
 
     fun incrementPostCommentsCount() {
-        postCommentsCount++
+        attrService.incrementPostCommentsCount(this)
     }
 
     fun decrementPostCommentsCount() {
-        postCommentsCount--
+        attrService.decrementPostCommentsCount(this)
     }
 
     constructor(member: Member) : this(
