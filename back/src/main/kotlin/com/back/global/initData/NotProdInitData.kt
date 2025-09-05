@@ -76,10 +76,10 @@ class NotProdInitData(
         val post2 = postService.write(postUser1, "제목 2", "내용 2")
         val post3 = postService.write(postUser2, "제목 3", "내용 3")
 
-        post1.addComment(postUser1, "댓글 1-1")
-        post1.addComment(postUser1, "댓글 1-2")
-        post1.addComment(postUser2, "댓글 1-3")
-        post2.addComment(postUser3, "댓글 2-1")
-        post2.addComment(postUser3, "댓글 2-2")
+        postService.writeComment(postUser1, post1, "댓글 1-1")
+        postService.writeComment(postUser1, post1, "댓글 1-2")
+        postService.writeComment(postUser2, post1, "댓글 1-3")
+        postService.writeComment(postUser3, post2, "댓글 2-1")
+        postService.writeComment(postUser3, post2, "댓글 2-2")
     }
 }
