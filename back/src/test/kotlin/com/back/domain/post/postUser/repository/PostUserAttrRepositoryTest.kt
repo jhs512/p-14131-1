@@ -32,4 +32,26 @@ class PostUserAttrRepositoryTest {
 
         postUserAttrRepository.save(attr)
     }
+
+    @Test
+    @DisplayName("saveString")
+    fun t2() {
+        val postUserSystem = postUserRepository.findByUsername("system").getOrThrow()
+
+        val attr = PostUserAttr(
+            postUserSystem,
+            "grade",
+            "브론즈"
+        )
+
+        postUserAttrRepository.save(attr)
+    }
+
+    @Test
+    @DisplayName("find")
+    fun t3() {
+        val postUserSystem = postUserRepository.findByUsername("system").getOrThrow()
+
+        postUserAttrRepository.findBySubjectAndName(postUserSystem, "postsCount")
+    }
 }
