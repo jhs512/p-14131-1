@@ -6,8 +6,8 @@ import org.springframework.data.domain.Sort
 enum class PostSearchSortType1 {
     ID,
     ID_ASC,
-    AUTHOR_NICKNAME,
-    AUTHOR_NICKNAME_ASC;
+    AUTHOR_NAME,
+    AUTHOR_NAME_ASC;
 
     val sortBy by lazy {
         Sort.by(

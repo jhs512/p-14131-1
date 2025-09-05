@@ -3,6 +3,7 @@ package com.back.domain.post.post.controller
 import com.back.domain.post.post.dto.PostDto
 import com.back.domain.post.post.dto.PostWithContentDto
 import com.back.domain.post.post.service.PostService
+import com.back.domain.post.postUser.entity.PostUser
 import com.back.global.rq.Rq
 import com.back.global.rsData.RsData
 import com.back.standard.dto.PageDto
@@ -26,6 +27,9 @@ class ApiV1PostController(
     private val postService: PostService,
     private val rq: Rq
 ) {
+    val actor: PostUser
+        get() = PostUser(rq.actor)
+
     @GetMapping
     @Transactional(readOnly = true)
     @Operation(summary = "다건 조회")
@@ -77,8 +81,6 @@ class ApiV1PostController(
     fun delete(
         @PathVariable id: Int
     ): RsData<Void> {
-        val actor = rq.actor
-
         val post = postService.findById(id).getOrThrow()
 
         post.checkActorCanDelete(actor)
@@ -106,8 +108,6 @@ class ApiV1PostController(
     fun write(
         @Valid @RequestBody reqBody: PostWriteReqBody
     ): RsData<PostDto> {
-        val actor = rq.actor
-
         val post = postService.write(actor, reqBody.title, reqBody.content)
 
         return RsData(
@@ -133,8 +133,6 @@ class ApiV1PostController(
         @PathVariable id: Int,
         @Valid @RequestBody reqBody: PostModifyReqBody
     ): RsData<Void> {
-        val actor = rq.actor
-
         val post = postService.findById(id).getOrThrow()
 
         post.checkActorCanModify(actor)
