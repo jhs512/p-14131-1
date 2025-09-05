@@ -253,4 +253,19 @@ class MemberRepositoryTest {
             assertThat(page.content[i].id).isGreaterThan(page.content[i + 1].id)
         }
     }
+
+    @Test
+    @DisplayName("findById twice, cached")
+    fun t25() {
+        memberRepository.findById(1) // SELECT
+        memberRepository.findById(1) // CACHED
+    }
+
+    @Test
+    @DisplayName("findByUsername twice, no cached")
+    fun t26() {
+        memberRepository.findByUsername("user1") // SELECT
+        memberRepository.findByUsername("user1") // SELECT
+        memberRepository.findById(3) // CACHED
+    }
 }
