@@ -265,7 +265,7 @@ class MemberRepositoryTest {
     @DisplayName("findByUsername twice, no cached")
     fun t26() {
         memberRepository.findByUsername("user1") // SELECT
-        memberRepository.findByUsername("user1") // SELECT
+        memberRepository.findByUsername("user1") // CACHED
         memberRepository.findById(3) // CACHED
     }
 }

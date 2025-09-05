@@ -5,13 +5,22 @@ import com.back.domain.member.member.entity.QMember
 import com.back.standard.dto.MemberSearchKeywordType1
 import com.back.standard.util.QueryDslUtil
 import com.querydsl.jpa.impl.JPAQueryFactory
+import jakarta.persistence.EntityManager
+import org.hibernate.Session
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.support.PageableExecutionUtils
 
 class MemberRepositoryImpl(
-    private val queryFactory: JPAQueryFactory
+    private val queryFactory: JPAQueryFactory,
+    private val entityManager: EntityManager,
 ) : MemberRepositoryCustom {
+    override fun findByUsername(username: String): Member? {
+        return entityManager.unwrap(Session::class.java)
+            .byNaturalId(Member::class.java)
+            .using(Member::username.name, username)
+            .load()
+    }
 
     override fun findQById(id: Int): Member? {
         val member = QMember.member
