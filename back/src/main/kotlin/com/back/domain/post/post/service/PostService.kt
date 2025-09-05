@@ -1,18 +1,23 @@
 package com.back.domain.post.post.service
 
+import com.back.domain.post.post.dto.PostDto
 import com.back.domain.post.post.entity.Post
 import com.back.domain.post.post.repository.PostRepository
 import com.back.domain.post.postComment.entity.PostComment
+import com.back.domain.post.postComment.event.PostCommentWrittenEvent
+import com.back.domain.post.postUser.dto.PostUserDto
 import com.back.domain.post.postUser.entity.PostUser
 import com.back.standard.dto.PostSearchKeywordType1
 import com.back.standard.dto.PostSearchSortType1
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
 class PostService(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val publisher: ApplicationEventPublisher,
 ) {
     fun count(): Long {
         return postRepository.count()
@@ -37,6 +42,13 @@ class PostService(
     }
 
     fun writeComment(author: PostUser, post: Post, content: String): PostComment {
+        publisher.publishEvent(
+            PostCommentWrittenEvent(
+                PostDto(post),
+                PostUserDto(author)
+            )
+        )
+
         return post.addComment(author, content)
     }
 

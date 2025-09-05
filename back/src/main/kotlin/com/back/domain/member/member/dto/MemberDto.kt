@@ -14,11 +14,11 @@ data class MemberDto(
     val profileImageUrl: String,
 ) {
     constructor(member: Member) : this(
-        id = member.id,
-        createDate = member.createDate,
-        modifyDate = member.modifyDate,
-        isAdmin = member.isAdmin,
-        name = member.name,
-        profileImageUrl = member.profileImgUrlOrDefault
+        member.id,
+        member.createDate,
+        member.modifyDate,
+        member.isAdmin,
+        member.name,
+        member.profileImgUrlOrDefault
     )
 }
