@@ -3,6 +3,7 @@ package com.back.domain.post.post.service
 import com.back.domain.post.post.dto.PostDto
 import com.back.domain.post.post.entity.Post
 import com.back.domain.post.post.repository.PostRepository
+import com.back.domain.post.postComment.dto.PostCommentDto
 import com.back.domain.post.postComment.entity.PostComment
 import com.back.domain.post.postComment.event.PostCommentWrittenEvent
 import com.back.domain.post.postUser.dto.PostUserDto
@@ -42,14 +43,19 @@ class PostService(
     }
 
     fun writeComment(author: PostUser, post: Post, content: String): PostComment {
+        val postComment = post.addComment(author, content)
+
+        postRepository.flush()
+
         publisher.publishEvent(
             PostCommentWrittenEvent(
+                PostCommentDto(postComment),
                 PostDto(post),
                 PostUserDto(author)
             )
         )
 
-        return post.addComment(author, content)
+        return postComment
     }
 
     fun deleteComment(post: Post, postComment: PostComment): Boolean {
