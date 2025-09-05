@@ -13,6 +13,8 @@ class PostUser(
     username: String,
     @field:Column(name = "nickname") var name: String,
     profileImgUrl: String? = null,
+    @field:Column(columnDefinition = "INT DEFAULT 0") val postsCount: Int = 0,
+    @field:Column(columnDefinition = "INT DEFAULT 0") val postCommentsCount: Int = 0,
 ) : BaseMember(id, username, profileImgUrl) {
     constructor(member: Member) : this(
         member.id,

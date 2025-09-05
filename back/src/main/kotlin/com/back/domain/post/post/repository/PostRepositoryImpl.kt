@@ -8,7 +8,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.support.PageableExecutionUtils
-import kotlin.io.path.name
 
 class PostRepositoryImpl(
     private val queryFactory: JPAQueryFactory
