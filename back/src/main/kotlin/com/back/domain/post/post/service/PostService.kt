@@ -21,6 +21,8 @@ class PostService(
     fun write(author: PostUser, title: String, content: String): Post {
         val post = Post(author, title, content)
 
+        author.incrementPostsCount()
+
         return postRepository.save(post)
     }
 
@@ -47,6 +49,8 @@ class PostService(
     }
 
     fun delete(post: Post) {
+        post.author.decrementPostsCount()
+
         postRepository.delete(post)
     }
 
