@@ -29,6 +29,10 @@ class CustomAuthenticationFilter(
         "/api/v1/members/join",
     )
 
+    private val publicApiPatterns = listOf(
+        Regex("/api/v1/members/\\d+/redirectToProfileImg")
+    )
+
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -70,8 +74,10 @@ class CustomAuthenticationFilter(
     private fun isApiRequest(request: HttpServletRequest): Boolean =
         request.requestURI.startsWith("/api/")
 
-    private fun isPublicApi(request: HttpServletRequest): Boolean =
-        request.requestURI in publicApiPaths
+    private fun isPublicApi(request: HttpServletRequest): Boolean {
+        val uri = request.requestURI
+        return uri in publicApiPaths || publicApiPatterns.any { it.matches(uri) }
+    }
 
     private fun extractTokens(): Pair<String, String> {
         val headerAuthorization = rq.getHeader("Authorization", "")

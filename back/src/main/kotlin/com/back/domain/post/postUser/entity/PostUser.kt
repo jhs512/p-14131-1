@@ -48,6 +48,6 @@ class PostUser(
         member.id,
         member.username,
         member.nickname,
-        member.profileImgUrl
+        member.profileImgUrl,
     )
 }

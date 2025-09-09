@@ -13,6 +13,9 @@ class BaseMember(
     @field:NaturalId @field:Column(unique = true) val username: String,
     var profileImgUrl: String? = null,
 ) : BaseTime(id) {
+    val redirectToProfileImgUrlOrDefault: String
+        get() = "http://localhost:8080/api/v1/members/${id}/redirectToProfileImg"
+
     val profileImgUrlOrDefault: String
         get() {
             profileImgUrl?.let { return it }

@@ -9,14 +9,16 @@ data class PostDto(
     val modifyDate: LocalDateTime,
     val authorId: Int,
     val authorName: String,
+    val authorProfileImgUrl: String,
     val title: String
 ) {
     constructor(post: Post) : this(
-        id = post.id,
-        createDate = post.createDate,
-        modifyDate = post.modifyDate,
-        authorId = post.author.id,
-        authorName = post.author.name,
-        title = post.title
+        post.id,
+        post.createDate,
+        post.modifyDate,
+        post.author.id,
+        post.author.name,
+        post.author.redirectToProfileImgUrlOrDefault,
+        post.title
     )
 }
