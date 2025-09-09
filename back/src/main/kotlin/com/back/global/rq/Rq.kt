@@ -1,9 +1,9 @@
 package com.back.global.rq
 
 import com.back.domain.member.member.entity.Member
+import com.back.domain.member.member.entity.MemberProxy
 import com.back.domain.member.member.service.MemberService
 import com.back.global.security.SecurityUser
-import com.back.standard.extensions.getOrThrow
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -23,15 +23,17 @@ class Rq(
             ?.principal
             ?.let {
                 if (it is SecurityUser) {
-                    Member(it.id, it.username, it.nickname)
+                    MemberProxy(
+                        memberService.getReferenceById(it.id),
+                        it.id,
+                        it.username,
+                        it.nickname
+                    )
                 } else {
                     null
                 }
             }
             ?: throw IllegalStateException("인증된 사용자가 없습니다.")
-
-    val actorFromDb: Member
-        get() = memberService.findById(actor.id).getOrThrow()
 
     fun getHeader(name: String, defaultValue: String): String {
         return req.getHeader(name) ?: defaultValue
