@@ -15,12 +15,13 @@ class Member(
 ) : BaseMember(id, username, profileImgUrl) {
     constructor(id: Int) : this(id, "", "")
 
-    constructor(id: Int, username: String, nickname: String) : this(
+    constructor(id: Int, username: String, nickname: String, profileImgUrl: String? = null) : this(
         id,
         username,
         null,
         nickname,
-        ""
+        "",
+        profileImgUrl
     )
 
     constructor(username: String, password: String?, nickname: String, profileImgUrl: String?) : this(
