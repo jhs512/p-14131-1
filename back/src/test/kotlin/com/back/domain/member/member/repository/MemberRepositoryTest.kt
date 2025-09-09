@@ -268,4 +268,13 @@ class MemberRepositoryTest {
         memberRepository.findByUsername("user1") // CACHED
         memberRepository.findById(3) // CACHED
     }
+
+    @Test
+    @DisplayName("getReferenceById로 불러온 객체는 id 조회 이외의 필드 접근 시점에 SELECT 쿼리가 실행된다.")
+    fun t27() {
+        val member = memberRepository.getReferenceById(1)
+        println(member.id)
+        member.nickname = "시스템" // 쿼리 발생
+        println(member.nickname)
+    }
 }
