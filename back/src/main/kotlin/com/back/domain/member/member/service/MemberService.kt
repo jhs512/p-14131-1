@@ -90,4 +90,6 @@ class MemberService(
                 sort.sortBy
             )
         )
+
+    fun getReferenceById(id: Int): Member = memberRepository.getReferenceById(id)
 }
