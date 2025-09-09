@@ -1,7 +1,7 @@
 package com.back.global.app
 
 import com.back.domain.post.postUser.entity.PostUser
-import com.back.domain.post.postUser.service.PostUserAttrService
+import com.back.domain.post.postUser.repository.PostUserAttrRepository
 import com.back.standard.util.Ut
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,12 +14,12 @@ import tools.jackson.databind.ObjectMapper
 class AppConfig(
     environment: Environment,
     objectMapper: ObjectMapper,
-    postUserAttrService: PostUserAttrService
+    postUserAttrRepository: PostUserAttrRepository
 ) {
     init {
         Companion.environment = environment
         Ut.json.objectMapper = objectMapper
-        PostUser.attrService = postUserAttrService
+        PostUser.attrRepository = postUserAttrRepository
     }
 
     @Bean
