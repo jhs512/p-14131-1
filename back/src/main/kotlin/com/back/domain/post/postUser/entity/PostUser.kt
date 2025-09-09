@@ -34,16 +34,16 @@ class PostUser(
             ?: PostUserAttr(this, "postCommentsCount", "0")
     }
 
-    final var postsCount
+    var postsCount
         get() = postsCountAttr.value.toInt()
-        private set(value) {
+        set(value) {
             postsCountAttr.value = value.toString()
             attrRepository.save(postsCountAttr)
         }
 
-    final var postCommentsCount
+    var postCommentsCount
         get() = postCommentsCountAttr.value.toInt()
-        private set(value) {
+        set(value) {
             postCommentsCountAttr.value = value.toString()
             attrRepository.save(postCommentsCountAttr)
         }
