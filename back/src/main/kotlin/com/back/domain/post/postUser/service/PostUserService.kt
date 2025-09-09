@@ -9,4 +9,5 @@ class PostUserService(
     private val postUserRepository: PostUserRepository,
 ) {
     fun findByUsername(username: String): PostUser? = postUserRepository.findByUsername(username)
+    fun getReferenceById(id: Int) = postUserRepository.getReferenceById(id)
 }
