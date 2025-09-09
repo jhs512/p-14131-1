@@ -9,6 +9,7 @@ data class PostWithContentDto(
     val modifyDate: LocalDateTime,
     val authorId: Int,
     val authorName: String,
+    val authorProfileImgUrl: String,
     val title: String,
     val content: String
 ) {
@@ -18,6 +19,7 @@ data class PostWithContentDto(
         modifyDate = post.modifyDate,
         authorId = post.author.id,
         authorName = post.author.name,
+        authorProfileImgUrl = post.author.redirectToProfileImgUrlOrDefault,
         title = post.title,
         content = post.content
     )
