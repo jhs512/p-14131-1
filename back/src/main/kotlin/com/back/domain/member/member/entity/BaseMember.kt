@@ -1,5 +1,6 @@
 package com.back.domain.member.member.entity
 
+import com.back.domain.member.member.repository.MemberAttrRepository
 import com.back.global.jpa.entity.BaseEntity
 import com.back.global.jpa.entity.BaseTime
 import jakarta.persistence.Column
@@ -14,6 +15,10 @@ class BaseMember(
     @field:NaturalId @field:Column(unique = true) val username: String,
     var profileImgUrl: String? = null,
 ) : BaseTime(id) {
+    companion object {
+        lateinit var memberAttrRepository: MemberAttrRepository
+    }
+
     override fun equals(other: Any?): Boolean {
         if (other === this) return true
         if (other == null || other !is BaseMember) return false
