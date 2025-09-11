@@ -12,30 +12,32 @@ class Member(
     var password: String? = null,
     var nickname: String,
     @field:Column(unique = true) var apiKey: String,
-    profileImgUrl: String? = null,
-) : BaseMember(id, username, profileImgUrl) {
+) : BaseMember(id, username) {
     companion object {
         lateinit var attrRepository: MemberAttrRepository
     }
 
+    // 코프링에서 엔티티의 `by lazy` 필드가 제대로 작동하게 하려면
+    // kotlin("plugin.jpa") 에 의해서 만들어지는 인자 없는 생성자로는 부족하다.
+    // 귀찮지만 이렇게 직접 만들어야 한다.
+    constructor() : this(0)
+
     constructor(id: Int) : this(id, "", "")
 
-    constructor(id: Int, username: String, nickname: String, profileImgUrl: String? = null) : this(
+    constructor(id: Int, username: String, nickname: String) : this(
         id,
         username,
         null,
         nickname,
-        "",
-        profileImgUrl
+        ""
     )
 
-    constructor(username: String, password: String?, nickname: String, profileImgUrl: String?) : this(
+    constructor(username: String, password: String?, nickname: String) : this(
         0,
         username,
         password,
         nickname,
-        UUID.randomUUID().toString(), // apiKey는 UUID로 생성
-        profileImgUrl
+        UUID.randomUUID().toString(),
     )
 
     val name: String
@@ -43,7 +45,8 @@ class Member(
 
     fun modify(nickname: String, profileImgUrl: String?) {
         this.nickname = nickname
-        this.profileImgUrl = profileImgUrl
+
+        profileImgUrl?.let { this.profileImgUrl = it }
     }
 
     fun modifyApiKey(apiKey: String) {

@@ -14,9 +14,8 @@ import org.springframework.data.annotation.Immutable
 class PostUser(
     id: Int,
     username: String,
-    @field:Column(name = "nickname") var name: String,
-    profileImgUrl: String? = null,
-) : BaseMember(id, username, profileImgUrl) {
+    @field:Column(name = "nickname") var name: String
+) : BaseMember(id, username) {
 
     companion object {
         lateinit var attrRepository: PostUserAttrRepository
@@ -72,7 +71,6 @@ class PostUser(
     constructor(member: Member) : this(
         member.id,
         member.username,
-        member.nickname,
-        member.profileImgUrl,
+        member.nickname
     )
 }

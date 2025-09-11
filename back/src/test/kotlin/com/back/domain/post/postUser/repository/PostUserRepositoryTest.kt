@@ -41,7 +41,7 @@ class PostUserRepositoryTest {
         // fulfill 필요함
         assertThat(postUser.createDate).isNotNull
         assertThat(postUser.modifyDate).isNotNull
-        assertThat(postUser.profileImgUrl).isNull()
+        assertThat(postUser.profileImgUrl).isBlank
         assertThat(postUser.postsCount).isNotNull
         assertThat(postUser.postCommentsCount).isNotNull
     }

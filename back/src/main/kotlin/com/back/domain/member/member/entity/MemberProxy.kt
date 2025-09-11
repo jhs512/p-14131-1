@@ -4,9 +4,8 @@ class MemberProxy(
     private val real: Member,
     id: Int,
     username: String,
-    nickname: String,
-    profileImgUrl: String? = null,
-) : Member(id, username, nickname, profileImgUrl) {
+    nickname: String
+) : Member(id, username, nickname) {
     override var nickname: String
         get() = super.nickname
         set(value) {

@@ -4,9 +4,8 @@ class PostUserProxy(
     private val real: PostUser,
     id: Int,
     username: String,
-    name: String,
-    profileImgUrl: String? = null,
-) : PostUser(id, username, name, profileImgUrl) {
+    name: String
+) : PostUser(id, username, name) {
     override var createDate
         get() = real.createDate
         set(value) {
