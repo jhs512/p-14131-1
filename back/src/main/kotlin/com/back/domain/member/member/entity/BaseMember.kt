@@ -1,6 +1,7 @@
 package com.back.domain.member.member.entity
 
 import com.back.domain.member.member.repository.MemberAttrRepository
+import com.back.domain.member.member.repository.MemberRepository
 import com.back.global.jpa.entity.BaseEntity
 import com.back.global.jpa.entity.BaseTime
 import jakarta.persistence.Column
@@ -13,9 +14,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 class BaseMember(
     id: Int,
     @field:NaturalId @field:Column(unique = true) val username: String,
-    var profileImgUrl: String? = null,
 ) : BaseTime(id) {
     companion object {
+        lateinit var memberRepository: MemberRepository
         lateinit var memberAttrRepository: MemberAttrRepository
     }
 
@@ -26,15 +27,26 @@ class BaseMember(
         return id == that.id
     }
 
+    @delegate:Transient
+    val profileImgUrlAttr by lazy {
+        memberAttrRepository.findBySubjectAndName(memberRepository.getReferenceById(this.id), "profileImgUrl")
+            ?: MemberAttr(memberRepository.getReferenceById(this.id), "profileImgUrl", "")
+    }
+
+    var profileImgUrl: String
+        get() = profileImgUrlAttr.value
+        set(value) {
+            profileImgUrlAttr.value = value
+            memberAttrRepository.save(profileImgUrlAttr)
+        }
+
     val redirectToProfileImgUrlOrDefault: String
         get() = "http://localhost:8080/api/v1/members/${id}/redirectToProfileImg"
 
     val profileImgUrlOrDefault: String
-        get() {
-            profileImgUrl?.let { return it }
-
-            return "https://placehold.co/600x600?text=U_U"
-        }
+        get() = profileImgUrl
+            .takeIf { it.isNotBlank() }
+            ?: "https://placehold.co/600x600?text=U_U"
 
     val isAdmin: Boolean
         get() {

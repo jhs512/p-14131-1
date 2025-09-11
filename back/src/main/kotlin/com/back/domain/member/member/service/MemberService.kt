@@ -31,8 +31,10 @@ class MemberService(
         val encodedPassword = if (!password.isNullOrBlank()) passwordEncoder.encode(password) else null
 
         // 엔티티 생성 후 저장
-        val member = Member(username, encodedPassword, nickname, profileImgUrl)
-        return memberRepository.save(member)
+        val member = memberRepository.save(Member(username, encodedPassword, nickname))
+        profileImgUrl?.let { member.profileImgUrl = it }
+
+        return member
     }
 
     fun findByUsername(username: String): Member? = memberRepository.findByUsername(username)

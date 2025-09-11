@@ -305,7 +305,7 @@ class MemberRepositoryTest {
         // fulfill 필요함
         assertThat(member.createDate).isNotNull
         assertThat(member.modifyDate).isNotNull
-        assertThat(member.profileImgUrl).isNull()
+        assertThat(member.profileImgUrl).isBlank
         assertThat(member.apiKey).isNotNull
         assertThat(member.password).isNotNull
     }
