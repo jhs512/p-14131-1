@@ -802,6 +802,7 @@ export interface operations {
             query?: {
                 page?: number;
                 pageSize?: number;
+                kw?: string;
             };
             header?: never;
             path?: never;
