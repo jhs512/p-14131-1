@@ -112,6 +112,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/members/{id}/redirectToProfileImg": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 프로필 이미지 리다이렉트(브라우저 캐시 20분) */
+        get: operations["redirectToProfileImg"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/members/me": {
         parameters: {
             query?: never;
@@ -227,6 +244,7 @@ export interface components {
             /** Format: int32 */
             authorId: number;
             authorName: string;
+            authorProfileImgUrl: string;
             title: string;
         };
         RsDataPostDto: {
@@ -247,6 +265,7 @@ export interface components {
             /** Format: int32 */
             authorId: number;
             authorName: string;
+            authorProfileImgUrl: string;
             /** Format: int32 */
             postId: number;
             content: string;
@@ -320,6 +339,7 @@ export interface components {
             /** Format: int32 */
             authorId: number;
             authorName: string;
+            authorProfileImgUrl: string;
             title: string;
             content: string;
         };
@@ -737,6 +757,35 @@ export interface operations {
                 content: {
                     "application/json;charset=UTF-8": components["schemas"]["RsDataMemberLoginResBody"];
                 };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json;charset=UTF-8": components["schemas"]["RsDataVoid"];
+                };
+            };
+        };
+    };
+    redirectToProfileImg: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Found */
+            302: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Bad Request */
             400: {
