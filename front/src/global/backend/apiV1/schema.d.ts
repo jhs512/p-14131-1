@@ -554,9 +554,9 @@ export interface operations {
             query?: {
                 page?: number;
                 pageSize?: number;
-                kwType?: "TITLE" | "CONTENT" | "AUTHOR_NICKNAME" | "ALL";
+                kwType?: "TITLE" | "CONTENT" | "AUTHOR_NAME" | "ALL";
                 kw?: string;
-                sort?: "ID" | "ID_ASC" | "AUTHOR_NICKNAME" | "AUTHOR_NICKNAME_ASC";
+                sort?: "ID" | "ID_ASC" | "AUTHOR_NAME" | "AUTHOR_NAME_ASC";
             };
             header?: never;
             path?: never;
