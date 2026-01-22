@@ -802,7 +802,7 @@ export interface operations {
             query?: {
                 page?: number;
                 pageSize?: number;
-                kwType?: string;
+                kwType?: "USERNAME" | "NICKNAME" | "ALL";
                 kw?: string;
             };
             header?: never;
