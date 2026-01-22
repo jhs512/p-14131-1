@@ -6,8 +6,10 @@ import com.back.domain.post.postUser.service.PostUserAttrService
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
+import org.springframework.data.annotation.Immutable
 
 @Entity
+@Immutable
 @Table(name = "member")
 class PostUser(
     id: Int,
