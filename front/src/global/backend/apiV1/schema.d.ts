@@ -804,6 +804,7 @@ export interface operations {
                 pageSize?: number;
                 kwType?: "USERNAME" | "NICKNAME" | "ALL";
                 kw?: string;
+                sort?: string;
             };
             header?: never;
             path?: never;
