@@ -780,7 +780,10 @@ export interface operations {
     };
     getItems_2: {
         parameters: {
-            query?: never;
+            query?: {
+                page?: number;
+                pageSize?: number;
+            };
             header?: never;
             path?: never;
             cookie?: never;
