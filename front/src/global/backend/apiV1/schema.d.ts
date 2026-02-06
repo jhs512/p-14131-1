@@ -320,39 +320,24 @@ export interface components {
             /** Format: int64 */
             all: number;
         };
-        PageMemberWithUsernameDto: {
-            /** Format: int64 */
-            totalElements: number;
-            /** Format: int32 */
-            totalPages: number;
-            pageable: components["schemas"]["PageableObject"];
-            sort: components["schemas"]["SortObject"];
-            /** Format: int32 */
-            numberOfElements: number;
-            first: boolean;
-            last: boolean;
-            /** Format: int32 */
-            size: number;
+        PageDtoMemberWithUsernameDto: {
             content: components["schemas"]["MemberWithUsernameDto"][];
-            /** Format: int32 */
-            number: number;
-            empty: boolean;
+            pageable: components["schemas"]["PageableDto"];
         };
-        PageableObject: {
-            paged: boolean;
+        PageableDto: {
             /** Format: int32 */
             pageNumber: number;
             /** Format: int32 */
             pageSize: number;
-            sort: components["schemas"]["SortObject"];
-            unpaged: boolean;
             /** Format: int64 */
             offset: number;
-        };
-        SortObject: {
+            /** Format: int64 */
+            totalElements: number;
+            /** Format: int32 */
+            totalPages: number;
+            /** Format: int32 */
+            numberOfElements: number;
             sorted: boolean;
-            unsorted: boolean;
-            empty: boolean;
         };
     };
     responses: never;
@@ -830,7 +815,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json;charset=UTF-8": components["schemas"]["PageMemberWithUsernameDto"];
+                    "application/json;charset=UTF-8": components["schemas"]["PageDtoMemberWithUsernameDto"];
                 };
             };
             /** @description Bad Request */
